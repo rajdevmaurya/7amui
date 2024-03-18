@@ -1,11 +1,13 @@
 
+"use client"
+import Home from "@/components/Home"
+import Login from "@/components/Login"
 import React from "react"
 import { connect } from "react-redux"
 
 let App = ({ isLoggedIn }) => {
-
   return <div>
-    {isLoggedIn ? 'home' : 'login'}
+    {isLoggedIn ? <Home /> : <Login />}
   </div>
 }
 
