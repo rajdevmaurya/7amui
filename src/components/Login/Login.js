@@ -4,32 +4,18 @@ import React, { useState } from 'react'
 import styles from './Login.module.css'
 import { Input } from '@/common/reusableComponents/Input'
 import inputControls from './configuration.json'
-import { regExp } from '@/common/validations/validations'
+import { validateInputControl, validteForm } from '@/common/validations/validations'
 const Login = () => {
     const [inputControlsArr, setInputControlsArr] = useState(inputControls)
     const handleLogin = () => {
+        const isFormInvalid = validteForm(inputControlsArr, setInputControlsArr)
+        if (isFormInvalid) {
+            return;
+        }
         alert("send request to the server")
     }
     const handleChange = (eve) => {
-        const { name, value } = eve?.target
-        const clonedinputControlsArr = JSON.parse(JSON.stringify(inputControlsArr))
-        const inputControlObj = clonedinputControlsArr.find((obj) => {
-            return obj.name === name
-        })
-        inputControlObj.isShowError = false;
-        inputControlObj.value = value;
-        const { criteria } = inputControlObj;
-        for (let i = 0; i < criteria?.length; i++) {
-            const regExFn = regExp[criteria[i]]
-            const errMsg = regExFn(value)
-            if (errMsg) {
-                inputControlObj.errMsg = errMsg
-                inputControlObj.isShowError = true
-                break;
-            }
-        }
-        setInputControlsArr(clonedinputControlsArr)
-
+        validateInputControl(eve, inputControlsArr, setInputControlsArr)
     }
     return (
         <div className='container-fluid'>

@@ -1,0 +1,79 @@
+[
+    {
+        "name": "Name",
+        "label": "Full name",
+        "type": "text",
+        "tag": "input",
+        "errMsg": "",
+        "isShowError": false,
+        "value": "",
+        "criteria": [
+            "REQUIRED"
+        ]
+    },
+    {
+        "name": "uid",
+        "label": "User ID",
+        "type": "text",
+        "tag": "input",
+        "errMsg": "",
+        "isShowError": false,
+        "value": "",
+        "criteria": [
+            "REQUIRED",
+            "EMAIL"
+        ]
+    },
+    {
+        "name": "pwd",
+        "label": "Password",
+        "type": "password",
+        "tag": "input",
+        "errMsg": "",
+        "isShowError": false,
+        "value": "",
+        "criteria": [
+            "REQUIRED",
+            "MIN5CHARS"
+        ]
+    },
+    {
+        "name": "rno",
+        "label": "Roll No",
+        "type": "number",
+        "tag": "input",
+        "errMsg": "",
+        "isShowError": false,
+        "value": "",
+        "criteria": [
+            "REQUIRED"
+        ]
+    },
+    {
+        "name": "country",
+        "label": "Country",
+        "tag": "select",
+        "errMsg": "",
+        "isShowError": false,
+        "value": "",
+        "criteria": [
+            "REQUIRED"
+        ],
+        "options": [
+            "India",
+            "United States",
+            "China"
+        ]
+    },
+    {
+        "name": "address",
+        "label": "Address",
+        "tag": "textarea",
+        "errMsg": "",
+        "isShowError": false,
+        "value": "",
+        "criteria": [
+            "REQUIRED"
+        ]
+    }
+]
