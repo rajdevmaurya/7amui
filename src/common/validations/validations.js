@@ -32,22 +32,35 @@ const setErrorMsg = (criteria, value, inputControlObj) => {
     }
 }
 export const validateInputControl = (eve, inputControlsArr, setInputControlsArr) => {
-    const { name, value } = eve?.target
+    const { name, value, type, checked } = eve?.target
     const clonedinputControlsArr = JSON.parse(JSON.stringify(inputControlsArr))
     const inputControlObj = clonedinputControlsArr.find((obj) => {
         return obj.name === name
     })
     inputControlObj.isShowError = false;
-    inputControlObj.value = value;
+    if (type === 'checkbox') {
+        const checkedValues = inputControlObj.value ? inputControlObj.value.split(',') : [];
+        if (checked) {
+            checkedValues.push(value)
+        } else {
+            const index = checkedValues.indexOf(value)
+            checkedValues.splice(index, 1)
+        }
+        inputControlObj.value = checkedValues.join()
+    } else {
+        inputControlObj.value = value;
+    }
     const { criteria } = inputControlObj;
     setErrorMsg(criteria, value, inputControlObj)
     setInputControlsArr(clonedinputControlsArr)
 }
 
 export const validteForm = (inputControlsArr, setInputControlsArr) => {
+    const dataObj = {};
     const clonedinputControlsArr = JSON.parse(JSON.stringify(inputControlsArr))
     clonedinputControlsArr.forEach((inputControlObj) => {
-        const { value, criteria } = inputControlObj
+        const { value, criteria, name } = inputControlObj
+        dataObj[name] = value;
         inputControlObj.errMsg = "";
         inputControlObj.isShowError = false;
         setErrorMsg(criteria, value, inputControlObj)
@@ -56,5 +69,5 @@ export const validteForm = (inputControlsArr, setInputControlsArr) => {
         return obj.errMsg
     })
     setInputControlsArr(clonedinputControlsArr)
-    return isFormInvalid
+    return [isFormInvalid, dataObj]
 }

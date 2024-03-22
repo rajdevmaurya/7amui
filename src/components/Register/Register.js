@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Register.module.css'
 import configuration from './configuration.json'
 import { Input } from '@/common/reusableComponents/Input'
@@ -8,12 +8,14 @@ import { Select } from '@/common/reusableComponents/Select'
 import { validateInputControl, validteForm } from '@/common/validations/validations'
 const Register = () => {
     const [inputControls, setInutControls] = useState(configuration)
+
     const handleChange = (eve) => {
         validateInputControl(eve, inputControls, setInutControls)
     }
     const handleRegister = () => {
-        const isInvalidForm = validteForm(inputControls, setInutControls)
+        const [isInvalidForm, dataObj] = validteForm(inputControls, setInutControls)
         if (isInvalidForm) return;
+        console.log(dataObj)
         alert("send req for registrarion")
     }
     return (

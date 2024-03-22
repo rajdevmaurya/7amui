@@ -50,6 +50,48 @@
         ]
     },
     {
+        "name": "gen",
+        "label": "Gender",
+        "type": "radio",
+        "tag": "input",
+        "errMsg": "",
+        "isShowError": false,
+        "value": "",
+        "criteria": [
+            "REQUIRED"
+        ],
+        "options": [
+            "Male",
+            "Female"
+        ],
+        "values": [
+            "M",
+            "F"
+        ]
+    },
+    {
+        "name": "hobbies",
+        "label": "Hobbies",
+        "type": "checkbox",
+        "tag": "input",
+        "errMsg": "",
+        "isShowError": false,
+        "value": "",
+        "criteria": [
+            "REQUIRED"
+        ],
+        "options": [
+            "Cricket",
+            "Football",
+            "Hockey"
+        ],
+        "values": [
+            "Cric",
+            "FB",
+            "Hoc"
+        ]
+    },
+    {
         "name": "country",
         "label": "Country",
         "tag": "select",
@@ -63,6 +105,11 @@
             "India",
             "United States",
             "China"
+        ],
+        "values": [
+            "Ind",
+            "US",
+            "Chi"
         ]
     },
     {

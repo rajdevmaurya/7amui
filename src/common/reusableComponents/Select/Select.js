@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Select = ({ label, errMsg, isShowError, name, value, handleChange, options }) => {
+const Select = ({ label, errMsg, isShowError, name, value, values, handleChange, options }) => {
 
     return (
         <div className='row mb-3'>
@@ -11,7 +11,7 @@ const Select = ({ label, errMsg, isShowError, name, value, handleChange, options
                 <select name={name} value={value} className='form-control' onChange={handleChange}>
                     {
                         options.map((val, ind) => {
-                            return <option key={`option_${ind}`}>{val}</option>
+                            return <option value={values[ind]} key={`option_${ind}`}>{val}</option>
                         })
                     }
                 </select>

@@ -8,10 +8,11 @@ import { validateInputControl, validteForm } from '@/common/validations/validati
 const Login = () => {
     const [inputControlsArr, setInputControlsArr] = useState(inputControls)
     const handleLogin = () => {
-        const isFormInvalid = validteForm(inputControlsArr, setInputControlsArr)
-        if (isFormInvalid) {
+        const [isInvalidForm, dataObj] = validteForm(inputControlsArr, setInputControlsArr)
+        if (isInvalidForm) {
             return;
         }
+        console.log(dataObj)
         alert("send request to the server")
     }
     const handleChange = (eve) => {
