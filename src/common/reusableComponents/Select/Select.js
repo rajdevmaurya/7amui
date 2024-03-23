@@ -9,6 +9,7 @@ const Select = ({ label, errMsg, isShowError, name, value, values, handleChange,
             </div>
             <div className='col-sm-3'>
                 <select name={name} value={value} className='form-control' onChange={handleChange}>
+                    <option value="">--Please Select--</option>
                     {
                         options.map((val, ind) => {
                             return <option value={values[ind]} key={`option_${ind}`}>{val}</option>

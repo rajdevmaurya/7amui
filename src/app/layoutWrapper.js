@@ -9,10 +9,10 @@ import { Menu } from "@/components/Menu";
 
 
 export const RootLayoutWrapper = ({ children }) => {
-  const state = useSelector((state) => state)
+  const isLoggedIn = useSelector((state) => state?.appReducer?.isLoggedIn)
   return <div>
     <Header />
-    {state?.appReducer?.isLoggedIn && <Menu />}
+    {isLoggedIn && <Menu />}
     {children}
     <Footer />
   </div>

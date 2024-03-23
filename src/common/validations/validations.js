@@ -1,3 +1,4 @@
+
 export const regExp = {
     "REQUIRED": (val) => {
         const exp = /\S/

@@ -6,6 +6,10 @@ import { Input } from '@/common/reusableComponents/Input'
 import { Textarea } from '@/common/reusableComponents/Textarea'
 import { Select } from '@/common/reusableComponents/Select'
 import { validateInputControl, validteForm } from '@/common/validations/validations'
+import Link from 'next/link'
+import axios from 'axios'
+import { ServerCall } from '@/common/api/ServerCall'
+
 const Register = () => {
     const [inputControls, setInutControls] = useState(configuration)
 
@@ -16,7 +20,16 @@ const Register = () => {
         const [isInvalidForm, dataObj] = validteForm(inputControls, setInutControls)
         if (isInvalidForm) return;
         console.log(dataObj)
-        alert("send req for registrarion")
+        ServerCall.sendPostReq("http://localhost:2020/std/reg-std", { data: dataObj })
+            .then((res) => {
+                console.log(1, res)
+            })
+            .catch((res) => {
+                console.log(2, res)
+            })
+            .finally(() => {
+                console.log(3, "finally")
+            })
     }
     return (
         <div className='container-fluid'>
@@ -36,7 +49,8 @@ const Register = () => {
             }
             <div className='row'>
                 <div className='offset-sm-5 col-sm-7'>
-                    <button onClick={handleRegister} className='btn btn-primary'>Register</button>
+                    <button onClick={handleRegister} className='btn btn-primary me-3'>Register</button>
+                    <Link href="/login">To Login</Link>
                 </div>
             </div>
         </div>
