@@ -5,10 +5,11 @@ import configuration from './configuration.json'
 import { Input } from '@/common/reusableComponents/Input'
 import { Textarea } from '@/common/reusableComponents/Textarea'
 import { Select } from '@/common/reusableComponents/Select'
-import { validateInputControl, validteForm } from '@/common/validations/validations'
+import { validateInputControl, validteForm, resetForm } from '@/common/validations/validations'
 import Link from 'next/link'
 import axios from 'axios'
 import { ServerCall } from '@/common/api/ServerCall'
+import { appStore } from '@/redux/store/appStore'
 
 const Register = () => {
     const [inputControls, setInutControls] = useState(configuration)
@@ -19,16 +20,26 @@ const Register = () => {
     const handleRegister = () => {
         const [isInvalidForm, dataObj] = validteForm(inputControls, setInutControls)
         if (isInvalidForm) return;
-        console.log(dataObj)
+        appStore.dispatch({ type: "LOADER", payload: true })
         ServerCall.sendPostReq("http://localhost:2020/std/reg-std", { data: dataObj })
             .then((res) => {
-                console.log(1, res)
+                const { acknowledged, insertedId } = res?.data
+                if (acknowledged && insertedId) {
+                    resetForm(inputControls, setInutControls)
+                    appStore.dispatch({
+                        type: "TOASTER",
+                        payload: { isShowToaster: true, message: "Successfully Inserted", bgColor: "green" }
+                    })
+                } else {
+
+                }
             })
             .catch((res) => {
-                console.log(2, res)
+                console.error("Register", res.data);
             })
             .finally(() => {
-                console.log(3, "finally")
+                appStore.dispatch({ type: "LOADER", payload: false })
+
             })
     }
     return (
