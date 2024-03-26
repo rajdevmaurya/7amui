@@ -1,22 +1,38 @@
 "use client"
 
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import styles from './Login.module.css'
 import { Input } from '@/common/reusableComponents/Input'
 import inputControls from './configuration.json'
 import Link from 'next/link'
 import { validateInputControl, validteForm } from '@/common/validations/validations'
+import { useDispatch } from 'react-redux'
+import { ServerCall } from '@/common/api/ServerCall'
 
 const Login = () => {
     const [inputControlsArr, setInputControlsArr] = useState(inputControls)
-    const ref = useRef()
-    const handleLogin = () => {
-        const [isInvalidForm, dataObj] = validteForm(inputControlsArr, setInputControlsArr)
-        if (isInvalidForm) {
-            return;
+    const dispatch = useDispatch()
+    const handleLogin = async () => {
+        try {
+            const [isInvalidForm, dataObj] = validteForm(inputControlsArr, setInputControlsArr)
+            if (isInvalidForm) {
+                return;
+            }
+            dispatch({ type: "LOADER", payload: true })
+            const res = await ServerCall.sendPostReq("http://localhost:2020/std/login", { data: dataObj })
+            if (res.data?.length) {
+                dispatch({ type: "LOGIN", payload: { isLoggedIn: true, user: res.data[0] } })
+            } else {
+                dispatch({ type: "TOASTER", payload: { isShowToaster: true, message: "Please check entered uid or password", bgColor: "red" } })
+
+            }
+        } catch (e) {
+            console.error(e);
+            dispatch({ type: "TOASTER", payload: { isShowToaster: true, message: e.message, bgColor: "red" } })
         }
-        console.log(dataObj)
-        alert("send request to the server")
+        finally {
+            dispatch({ type: "LOADER", payload: false })
+        }
     }
     const handleChange = (eve) => {
         validateInputControl(eve, inputControlsArr, setInputControlsArr)
