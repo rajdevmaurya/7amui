@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { validateInputControl, validteForm } from '@/common/validations/validations'
 import { useDispatch } from 'react-redux'
 import { ServerCall } from '@/common/api/ServerCall'
+import { Cookies } from '@/common/api/Cookies'
 
 const Login = () => {
     const [inputControlsArr, setInputControlsArr] = useState(inputControls)
@@ -21,6 +22,8 @@ const Login = () => {
             dispatch({ type: "LOADER", payload: true })
             const res = await ServerCall.sendPostReq("http://localhost:2020/std/login", { data: dataObj })
             if (res.data?.length) {
+                console.log(res.data[0])
+                Cookies.setCookie("token", res?.data?.[0]?.token)
                 dispatch({ type: "LOGIN", payload: { isLoggedIn: true, user: res.data[0] } })
             } else {
                 dispatch({ type: "TOASTER", payload: { isShowToaster: true, message: "Please check entered uid or password", bgColor: "red" } })
