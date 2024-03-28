@@ -9,10 +9,12 @@ import { validateInputControl, validteForm } from '@/common/validations/validati
 import { useDispatch } from 'react-redux'
 import { ServerCall } from '@/common/api/ServerCall'
 import { Cookies } from '@/common/api/Cookies'
+import { useRouter } from 'next/navigation'
 
 const Login = () => {
     const [inputControlsArr, setInputControlsArr] = useState(inputControls)
     const dispatch = useDispatch()
+    const router = useRouter()
     const handleLogin = async () => {
         try {
             const [isInvalidForm, dataObj] = validteForm(inputControlsArr, setInputControlsArr)
@@ -25,6 +27,7 @@ const Login = () => {
                 console.log(res.data[0])
                 Cookies.setCookie("token", res?.data?.[0]?.token)
                 dispatch({ type: "LOGIN", payload: { isLoggedIn: true, user: res.data[0] } })
+                router.push("/")
             } else {
                 dispatch({ type: "TOASTER", payload: { isShowToaster: true, message: "Please check entered uid or password", bgColor: "red" } })
 

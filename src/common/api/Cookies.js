@@ -5,6 +5,7 @@ function getDate(days) {
     return now;
 }
 function getCookiesObject(cookies) {
+
     const cookiesArr = cookies.split(";");
     return cookiesArr.reduce((init, cookieValue) => {
         const [key, value] = cookieValue?.split("=")
@@ -13,8 +14,6 @@ function getCookiesObject(cookies) {
     }, {})
 }
 export class Cookies {
-
-
     static setCookie(key, value, days) {
         if (days) {
             document.cookie = `${key}=${value};expires=${getDate(days)}`

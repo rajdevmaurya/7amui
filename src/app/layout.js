@@ -2,6 +2,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.css'
+import './mediaQueries.css';
 import { appStore } from "@/redux/store/appStore";
 import { Provider } from "react-redux";
 import { RootLayoutWrapper } from "./layoutWrapper";
