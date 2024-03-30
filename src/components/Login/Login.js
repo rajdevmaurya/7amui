@@ -22,7 +22,7 @@ const Login = () => {
                 return;
             }
             dispatch({ type: "LOADER", payload: true })
-            const res = await ServerCall.sendPostReq("http://localhost:2020/std/login", { data: dataObj })
+            const res = await ServerCall.sendPostReq("std/login", { data: dataObj })
             if (res.data?.length) {
                 console.log(res.data[0])
                 Cookies.setCookie("token", res?.data?.[0]?.token)

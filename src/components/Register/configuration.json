@@ -1,6 +1,6 @@
 [
     {
-        "name": "Name",
+        "name": "name",
         "label": "Full name",
         "type": "text",
         "tag": "input",

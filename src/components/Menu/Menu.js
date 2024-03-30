@@ -3,6 +3,13 @@ import styles from './Menu.module.css'
 import { data, menuItems } from './configuration.json'
 import Link from 'next/link'
 export const Menu = () => {
+    // const [menuItems, setMenuItems]=useState([])
+    /*
+        useEffect(()=>{
+            cosnt res=await ServerCall.sendGetReq("get-menuitems")
+            setMenuItems(res.data)
+        },[])
+    */
     const [isMobileView, setIsMobileView] = useState(document?.body?.offsetWidth < 700);
     const [left, setLeft] = useState(-150)
     const [selMenuItem, setSelMenuItem] = useState(location?.pathname?.slice(1) || 'home')

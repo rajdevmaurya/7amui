@@ -7,7 +7,6 @@ import { Textarea } from '@/common/reusableComponents/Textarea'
 import { Select } from '@/common/reusableComponents/Select'
 import { validateInputControl, validteForm, resetForm } from '@/common/validations/validations'
 import Link from 'next/link'
-import axios from 'axios'
 import { ServerCall } from '@/common/api/ServerCall'
 import { appStore } from '@/redux/store/appStore'
 
@@ -21,7 +20,7 @@ const Register = () => {
         const [isInvalidForm, dataObj] = validteForm(inputControls, setInutControls)
         if (isInvalidForm) return;
         appStore.dispatch({ type: "LOADER", payload: true })
-        ServerCall.sendPostReq("http://localhost:2020/std/reg-std", { data: dataObj })
+        ServerCall.sendPostReq("std/reg-std", { data: dataObj })
             .then((res) => {
                 const { acknowledged, insertedId } = res?.data
                 if (acknowledged && insertedId) {
