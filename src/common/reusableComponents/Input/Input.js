@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
 
-const Input = ({ label, errMsg, type, isShowError, values, name, value, options, handleChange }) => {
+const Input = ({ label, readonly, errMsg, type, isShowError, values, name, value, options, handleChange }) => {
     const fnPrepareInputControls = () => {
         switch (type) {
             case 'text':
             case 'password':
             case 'number':
-                return <input value={value} name={name} onChange={handleChange} className='form-control' type={type} />
+                return <input disabled={readonly} value={value} name={name} onChange={handleChange} className='form-control' type={type} />
             case 'radio':
                 return <div>
                     {

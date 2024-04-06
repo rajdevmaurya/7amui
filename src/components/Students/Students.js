@@ -21,7 +21,6 @@ const Students = () => {
             } finally {
                 dispatch({ type: "LOADER", payload: false })
             }
-
         }
         fnGetStudents();
     }, [dispatch])
@@ -32,7 +31,7 @@ const Students = () => {
             <Table
                 headers={["NAME", "UID", "ROLL NO", "ADDRESS"]}
                 rows={students}
-                tds={["Name", "uid", "rno", "address"]}
+                tds={["name", "uid", "rno", "address"]}
             />
         </div>
     )

@@ -16,7 +16,16 @@ export const Pagination = ({ currPage, setCurrPage, totalPages }) => {
     const fnPrev = () => {
         setCurrPage(currPage - 1)
     }
-    return <div>
-        <span>Go To :<input ref={inputRef} type="number" /><button onClick={fnGo}>Go</button></span><button onClick={fnPrev} disabled={currPage == 1}>Prev</button>{currPage}<button onClick={fnNext} disabled={currPage == totalPages}>Next</button><span>Total Pages:{totalPages}</span>
+    return <div className="row">
+        <div className="col-4">
+            <span>Go To :<input ref={inputRef} type="number" /><button onClick={fnGo}>Go</button></span>
+        </div>
+        <div className="col-4 text-center">
+            <button onClick={fnPrev} disabled={currPage == 1}>Prev</button>{currPage}<button onClick={fnNext} disabled={currPage == totalPages}>Next</button>
+        </div>
+        <div className="col-4 text-end">
+            <span>Total Pages:{totalPages}</span>
+        </div>
+
     </div>
 }
