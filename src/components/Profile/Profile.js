@@ -8,19 +8,30 @@ import configuration from './configuration.json'
 import { validateInputControl, validteForm, resetForm } from '@/common/validations/validations'
 import { ServerCall } from '@/common/api/ServerCall'
 import { Cookies } from '@/common/api/Cookies'
-
+import { useDispatch } from 'react-redux'
+import { Modal } from '@/common/reusableComponents/Modal'
 const Profile = () => {
     const [inputControls, setInutControls] = useState(configuration)
+    const [isShowModal, setIsShowModal] = useState(false)
+    const dispatch = useDispatch();
 
     useEffect(() => {
         async function getUsersById() {
-            const res = await ServerCall.sendGetReq(`std/get-user-by-id?id=${Cookies.getCookie("id")}`)
-            const userInfo = res?.data?.[0];
-            const clonedInputControls = JSON.parse(JSON.stringify(inputControls))
-            clonedInputControls?.forEach((obj) => {
-                obj.value = userInfo[obj.name]
-            })
-            setInutControls(clonedInputControls)
+            try {
+                dispatch({ type: "LOADER", payload: true })
+                const res = await ServerCall.sendGetReq(`std/get-user-by-id?id=${Cookies.getCookie("id")}`)
+                const userInfo = res?.data?.[0];
+                const clonedInputControls = JSON.parse(JSON.stringify(inputControls))
+                clonedInputControls?.forEach((obj) => {
+                    obj.value = userInfo[obj.name]
+                })
+                setInutControls(clonedInputControls)
+            } catch (e) {
+                console.error("Profile", e)
+            } finally {
+                dispatch({ type: "LOADER", payload: false })
+            }
+
         }
         getUsersById();
     }, [])
@@ -31,10 +42,53 @@ const Profile = () => {
     }
 
     const handleTerminate = () => {
-
+        setIsShowModal(true);
     }
     const handleUpdate = () => {
+        const [isFormInvalid, dataObj] = validteForm(inputControls, setInutControls)
+        if (isFormInvalid) { return }
+        dispatch({ type: "LOADER", payload: true })
+        ServerCall.sendPutReq(`std/update-std/${Cookies.getCookie("id")}`, { data: dataObj })
+            .then((res) => {
+                const { acknowledged, modifiedCount } = res.data;
+                if (acknowledged && modifiedCount) {
+                    dispatch({
+                        type: "TOASTER",
+                        payload: { isShowToaster: true, message: "Successfully Updated", bgColor: "green" }
+                    })
+                } else {
+                    dispatch({
+                        type: "TOASTER",
+                        payload: { isShowToaster: true, message: "Not Updated", bgColor: "yellow" }
+                    })
+                }
+            })
+            .catch((res) => {
+                console.log('catch', res)
+                dispatch({
+                    type: "TOASTER",
+                    payload: { isShowToaster: true, message: "Something went wrong.", bgColor: "red" }
+                })
+            })
+            .finally(() => {
+                dispatch({ type: "LOADER", payload: false })
 
+            })
+    }
+    const fnOK = () => {
+        try {
+            setIsShowModal(false)
+            ServerCall.sendDeleteReq(`std/delete-student?id=${Cookies.getCookie('id')}`)
+        } catch (e) {
+
+        } finally {
+
+        }
+
+
+    }
+    const fnClose = () => {
+        setIsShowModal(false)
     }
     return (
         <div className='container-fluid'>
@@ -58,6 +112,7 @@ const Profile = () => {
                     <button onClick={handleTerminate} className='btn btn-primary me-3'>Terminate</button>
                 </div>
             </div>
+            {isShowModal && <Modal text="R u sure..." isShowOk={true} fnOK={fnOK} fnClose={fnClose} />}
         </div>
     )
 }

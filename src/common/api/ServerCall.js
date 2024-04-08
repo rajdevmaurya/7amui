@@ -12,10 +12,18 @@ export class ServerCall {
         })
     }
     static sendPostReq(url, data) {
-        return axios.post(process.env.NEXT_PUBLIC_BASE_URL + url, data)
+        return axios.post(process.env.NEXT_PUBLIC_BASE_URL + url, data, {
+            headers: {
+                Authorization: Cookies.getCookie("token")
+            }
+        })
     }
     static sendPutReq(url, data) {
-        return axios.put(process.env.NEXT_PUBLIC_BASE_URL + url, data)
+        return axios.put(process.env.NEXT_PUBLIC_BASE_URL + url, data, {
+            headers: {
+                Authorization: Cookies.getCookie("token")
+            }
+        })
     }
     static sendDeleteReq(url) {
         return axios.delete(process.env.NEXT_PUBLIC_BASE_URL + url)
