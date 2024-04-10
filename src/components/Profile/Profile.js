@@ -10,10 +10,12 @@ import { ServerCall } from '@/common/api/ServerCall'
 import { Cookies } from '@/common/api/Cookies'
 import { useDispatch } from 'react-redux'
 import { Modal } from '@/common/reusableComponents/Modal'
+import { useRouter } from 'next/navigation'
 const Profile = () => {
     const [inputControls, setInutControls] = useState(configuration)
     const [isShowModal, setIsShowModal] = useState(false)
     const dispatch = useDispatch();
+    const router = useRouter();
 
     useEffect(() => {
         async function getUsersById() {
@@ -75,12 +77,31 @@ const Profile = () => {
 
             })
     }
-    const fnOK = () => {
+    const fnOK = async () => {
         try {
             setIsShowModal(false)
-            ServerCall.sendDeleteReq(`std/delete-student?id=${Cookies.getCookie('id')}`)
+            const res = await ServerCall.sendDeleteReq(`std/delete-student?id=${Cookies.getCookie('id')}`)
+            console.log(res);
+            const { acknowledged, deletedCount } = res?.data;
+            if (acknowledged && deletedCount) {
+                dispatch({
+                    type: "TOASTER",
+                    payload: { isShowToaster: true, message: "Successfully Terminated", bgColor: "green" }
+                })
+                Cookies.clearCookies();
+                dispatch({ type: "LOGOUT" })
+                router.push('/login')
+            } else {
+                dispatch({
+                    type: "TOASTER",
+                    payload: { isShowToaster: true, message: "Not Terminated", bgColor: "info" }
+                })
+            }
         } catch (e) {
-
+            dispatch({
+                type: "TOASTER",
+                payload: { isShowToaster: true, message: "Something went wrong", bgColor: "red" }
+            })
         } finally {
 
         }

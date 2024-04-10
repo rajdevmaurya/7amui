@@ -31,9 +31,9 @@ export class Cookies {
         document.cookie = `${key}=;expires=${getDate(-1)}`
     }
 
-    static clearCookie() {
+    static clearCookies() {
         const cookiesObj = getCookiesObject(document.cookie)
-        for (key in cookiesObj) {
+        for (let key in cookiesObj) {
             document.cookie = `${key}=;expires=${getDate(-1)}`
         }
     }

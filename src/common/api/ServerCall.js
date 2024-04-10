@@ -26,7 +26,11 @@ export class ServerCall {
         })
     }
     static sendDeleteReq(url) {
-        return axios.delete(process.env.NEXT_PUBLIC_BASE_URL + url)
+        return axios.delete(process.env.NEXT_PUBLIC_BASE_URL + url, {
+            headers: {
+                Authorization: Cookies.getCookie("token")
+            }
+        })
     }
 }
 
