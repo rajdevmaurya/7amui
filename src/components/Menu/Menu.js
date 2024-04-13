@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import styles from './Menu.module.css'
 import { data, menuItems } from './configuration.json'
 import Link from 'next/link'
@@ -20,9 +20,15 @@ export const Menu = () => {
 
     const [isMobileView, setIsMobileView] = useState(document?.body?.offsetWidth < 700);
     const [left, setLeft] = useState(-150)
-    const [selMenuItem, setSelMenuItem] = useState(location?.pathname?.slice(1) || 'home')
+    const [selMenuItem, setSelMenuItem] = useState()
 
     const router = useRouter();
+
+    useEffect(() => {
+        setTimeout(() => {
+            setSelMenuItem(location?.pathname?.slice(1) || 'home')
+        }, 500)
+    }, [])
 
     let timeoutId;
     window.addEventListener("resize", () => {
@@ -47,7 +53,8 @@ export const Menu = () => {
         <ul style={{ left: left }} className={`px-0 py-0 mx-0 my-0 ${isMobileView ? styles.mobileMenu : styles.menu}`}>
             {
                 menuItems?.map(({ id, link, text }, ind) => {
-                    return <li className={id === selMenuItem ? styles.active : "'"} onClick={() => handleMenuItemClick(id)} key={`li_${ind}`}><Link href={link}>{text}</Link></li>
+                    console.log(id, selMenuItem)
+                    return <li className={id === selMenuItem ? styles.active : ""} onClick={() => handleMenuItemClick(id)} key={`li_${ind}`}><Link href={link}>{text}</Link></li>
                 })
             }
             <li className='text-white cursor-pointer' onClick={handleLogout}>Logout</li>

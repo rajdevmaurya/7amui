@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        getBoundingClientRect() Event
+    </title>
+    <style>
+        body {
+            height: 1000px;
+        }
+
+        .myDiv {
+            width: 200px;
+            height: 200px;
+            background-color: skyblue;
+            margin: 400px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1" class="myDiv"></div>
+
+    <script>
+        function myfunction(value) {
+            const item = value.getBoundingClientRect();
+            return (
+                item.top >= 0 &&
+                item.left >= 0 &&
+                item.bottom <= (
+                    window.innerHeight ||
+                    document.documentElement.clientHeight) &&
+                item.right <= (
+                    window.innerWidth ||
+                    document.documentElement.clientWidth)
+            );
+        }
+
+        const elementToCheck = document.getElementById('div1');
+
+        window.addEventListener('scroll', () => {
+            if (myfunction(elementToCheck)) {
+                console.log('Element is visible in viewport');
+            } else {
+                console.log('Element is not visible in viewport');
+            }
+        }); 
+    </script>
+</body>
+
+</html>

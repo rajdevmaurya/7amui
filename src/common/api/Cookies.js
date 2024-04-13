@@ -15,6 +15,7 @@ function getCookiesObject(cookies) {
 }
 export class Cookies {
     static setCookie(key, value, days) {
+        if (typeof window === undefined) return;
         if (days) {
             document.cookie = `${key}=${value};expires=${getDate(days)}`
         } else {
@@ -23,15 +24,18 @@ export class Cookies {
     }
 
     static getCookie(key) {
+        if (typeof window === undefined) return;
         const cookiesObj = getCookiesObject(document.cookie)
         return cookiesObj[key]
     }
 
     static deleteCookie(key) {
+        if (typeof window === undefined) return;
         document.cookie = `${key}=;expires=${getDate(-1)}`
     }
 
     static clearCookies() {
+        if (typeof window === undefined) return;
         const cookiesObj = getCookiesObject(document.cookie)
         for (let key in cookiesObj) {
             document.cookie = `${key}=;expires=${getDate(-1)}`
