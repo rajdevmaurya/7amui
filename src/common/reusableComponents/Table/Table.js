@@ -11,7 +11,7 @@ const Table = ({ headers, rows, tds }) => {
         setCurrData(rows.slice(start, end))
     }, [currPage, rows])
     return (
-        <div className="table-responsive container-fluid">
+        <div data-testid="table-div" className="table-responsive container-fluid">
             {rows?.length > 0 ?
                 <div>
                     <table className="table table-striped">
@@ -39,7 +39,7 @@ const Table = ({ headers, rows, tds }) => {
                     <Pagination currPage={currPage} setCurrPage={setCurrPage} totalPages={Math.ceil(rows.length / perPage)} />
                 </div>
                 :
-                <h6 className='text-center'>No Data Found</h6>
+                <h6 data-testid="no-data" className='text-center'>No Data Found</h6>
             }
         </div>
     )

@@ -46,7 +46,7 @@ const Login = () => {
         validateInputControl(eve, inputControlsArr, setInputControlsArr)
     }
     return (
-        <div className='container-fluid'>
+        <div data-testid="login-div" className='container-fluid'>
             <h3 className='text-center my-3'>Login</h3>
             <form onSubmit={handleLogin}>
                 {

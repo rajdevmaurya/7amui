@@ -3,7 +3,7 @@ import styles from './Header.module.css';
 
 const Header = () => {
     return (
-        <div className={`text-center bg-primary text-white ${styles.header}`}>
+        <div data-testid="headingDiv" className={`text-center bg-primary text-white ${styles.header}`}>
             End to End Application
         </div>
     )
