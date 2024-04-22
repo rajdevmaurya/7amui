@@ -50,7 +50,7 @@ export const Menu = () => {
     }
     return (<>
         {isMobileView && <button onClick={hanldleMobileMenuBtnClick} className={styles.mobileMenuBtn}><span></span><span></span><span></span></button>}
-        <ul style={{ left: left }} className={`px-0 py-0 mx-0 my-0 ${isMobileView ? styles.mobileMenu : styles.menu}`}>
+        <ul data-testid="menu-test-id" style={{ left: left }} className={`px-0 py-0 mx-0 my-0 ${isMobileView ? styles.mobileMenu : styles.menu}`}>
             {
                 menuItems?.map(({ id, link, text }, ind) => {
                     console.log(id, selMenuItem)

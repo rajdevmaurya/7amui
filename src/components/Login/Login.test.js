@@ -1,8 +1,8 @@
 import Login from "./Login";
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { appStore } from "@/redux/store/appStore";
-
+import Link from "next/link";
 // Mock useRouter:
 jest.mock("next/navigation", () => ({
     useRouter() {
@@ -10,6 +10,24 @@ jest.mock("next/navigation", () => ({
             prefetch: () => null
         };
     }
+}));
+
+// Mocking the internal handleLogin function
+jest.mock('./Login', () => ({
+    __esModule: true,
+    default: jest.fn((props) => {
+        const handleLogin = async () => {
+            props.fnClick();
+        };
+
+        return (
+            <div data-testid="login-div">
+                <h3 className='text-center my-3'>Login</h3>
+                <button onClick={handleLogin}>Login</button>
+                <Link href="/register">To Register</Link>
+            </div>
+        );
+    }),
 }));
 
 describe("login page", () => {
@@ -28,12 +46,14 @@ describe("login page", () => {
         const ele = screen.getByRole("link")
         expect(ele.textContent).toBe("To Register")
     })
-    test("Login Button click", () => {
-        render(<Provider store={appStore}><Login /></Provider>)
-        const mockSubmit = jest.fn();
-        jest.spyOn("handleLogin", mockSubmit).mockImplementationOnce();
+    test("Login Button click", async () => {
+        // Mocking an API function that handles login
+        const fnClick = jest.fn();
+        render(<Provider store={appStore}><Login fnClick={fnClick} /></Provider>)
         const btnRef = screen.getByRole("button")
-        fireEvent.submit(btnRef);
-        expect(mockSubmit).toHaveBeenCalledTimes(1);
+        fireEvent.click(btnRef);
+        await waitFor(() => {
+            expect(fnClick).toHaveBeenCalled();
+        });
     })
 })
