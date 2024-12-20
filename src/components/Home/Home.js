@@ -32,8 +32,8 @@ const Home = () => {
         <div className='container-fluid'>
             <h3 className={`text-center my-3 ${styles.homeHeading}`} >Welcome....</h3>
             <p>
-                Helping Businesses Grow with Innovative IT Solutions
-                Welcome to Vision Techno Services! We specialize in providing comprehensive IT solutions that empower businesses to thrive. From custom software development to innovative tech solutions, we harness cutting-edge technologies to optimize processes, enhance productivity, and drive growth, enabling our clients to stay ahead in today's digital landscape.
+                Helping Businesses Grow with Innovative Helthcare Sale Service Solutions
+                Welcome to Echo Helathcare Services! We specialize in providing comprehensive Medical solutions that empower businesses to thrive. We harness cutting-edge technologies to optimize processes, enhance productivity, and drive growth, enabling our clients to stay ahead in today's digital landscape.
             </p>
             <div className='row'>
                 <div className='col-6 position-relative'>
@@ -43,15 +43,15 @@ const Home = () => {
 
                         </h1>
                         <h3>
-                            Technology for Your Business
+                            Technology for Your Healthcare Business
                         </h3>
                     </div>
                     <div className={`${styles.headerText2} position-absolute`}>
-                        <p>Unlock New Opportunities with Scalable and Secure Software Solutions,</p>
+                        <p>Unlock New Opportunities with Scalable and Secure Healthcare Solutions,</p>
                         <p>Get in touch with our Expert for same.</p>
                     </div>
                 </div>
-                <div className='col-6'>
+                <div className='col-4'>
                     <img ref={imgRef} id="homeImg" className={`w-100 ${styles.homeImg}`} src="home.png"></img>
                 </div>
             </div>

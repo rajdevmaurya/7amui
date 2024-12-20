@@ -1,11 +1,11 @@
 .menu {
     text-align: right;
-    background: #a6a6b7;
-    line-height: 40px;
+    background: #afcfb4;
+    line-height: 30px;
 }
 
 .mobileMenu {
-    background: #a6a6b7;
+    background: #afcfb4;
     width: 150px;
     display: inline-block;
     padding: 10px !important;
@@ -51,5 +51,5 @@
 }
 
 .active>a {
-    color: blue !important
+    color: green !important
 }
