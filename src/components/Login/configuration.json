@@ -1,14 +1,13 @@
 [
     {
         "name": "uid",
-        "label": "User ID",
-        "type": "text",
+        "label": "Mobile No",
+        "type": "number",
         "errMsg": "",
         "isShowError": false,
         "value": "",
         "criteria": [
-            "REQUIRED",
-            "EMAIL"
+            "REQUIRED"
         ]
     },
     {

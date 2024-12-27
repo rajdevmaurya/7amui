@@ -23,12 +23,12 @@ const Login = () => {
                 return;
             }
             dispatch({ type: "LOADER", payload: true })
-            const res = await ServerCall.sendPostReq("std/login", { data: dataObj })
-            if (res.data?.length) {
-                console.log(res.data[0])
-                Cookies.setCookie("token", res?.data?.[0]?.token)
-                Cookies.setCookie("id", res?.data?.[0]?._id)
-                dispatch({ type: "LOGIN", payload: { isLoggedIn: true, user: res.data[0] } })
+            const res = await ServerCall.authenticate("auth/authenticate", dataObj)
+           // if (res.data?.length) {
+                if (res.data) {
+                Cookies.setCookie("token", res?.data?.accessToken)
+                Cookies.setCookie("id", res?.data?.username)
+                dispatch({ type: "LOGIN", payload: { isLoggedIn: true, user: res.data } })
                 router.push("/")
             } else {
                 dispatch({ type: "TOASTER", payload: { isShowToaster: true, message: "Please check entered uid or password", bgColor: "red" } })
@@ -57,7 +57,7 @@ const Login = () => {
 
                 <div className='row'>
                     <div className='offset-sm-5 col-sm-7'>
-                        <button className='btn btn-primary me-3'>Login</button>
+                        <button className='btn btn-success me-3'>Login</button>
                         <Link href="/register">To Register</Link>
                     </div>
                 </div>

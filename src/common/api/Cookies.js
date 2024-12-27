@@ -24,7 +24,7 @@ export class Cookies {
     }
 
     static getCookie(key) {
-        if (typeof window === undefined) return;
+        if (typeof window === undefined) return null;
         const cookiesObj = getCookiesObject(document.cookie)
         return cookiesObj[key]
     }

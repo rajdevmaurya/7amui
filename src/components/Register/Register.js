@@ -20,10 +20,11 @@ const Register = () => {
         const [isInvalidForm, dataObj] = validteForm(inputControls, setInutControls)
         if (isInvalidForm) return;
         appStore.dispatch({ type: "LOADER", payload: true })
-        ServerCall.sendPostReq("std/reg-std", { data: dataObj })
+        ServerCall.signup("auth/signup", dataObj )
             .then((res) => {
-                const { acknowledged, insertedId } = res?.data
-                if (acknowledged && insertedId) {
+                const { id } = res?.data
+                const { status  } = res
+                if (status === 201 && id) {
                     resetForm(inputControls, setInutControls)
                     appStore.dispatch({
                         type: "TOASTER",
@@ -59,7 +60,7 @@ const Register = () => {
             }
             <div className='row'>
                 <div className='offset-sm-5 col-sm-7'>
-                    <button onClick={handleRegister} className='btn btn-primary me-3'>Register</button>
+                    <button onClick={handleRegister} className='btn btn-success me-3'>Register</button>
                     <Link href="/login">To Login</Link>
                 </div>
             </div>

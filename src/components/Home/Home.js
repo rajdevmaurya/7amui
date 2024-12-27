@@ -32,7 +32,7 @@ const Home = () => {
         <div className='container-fluid'>
             <h3 className={`text-center my-3 ${styles.homeHeading}`} >Welcome....</h3>
             <p>
-                Helping Businesses Grow with Innovative Helthcare Sale Service Solutions
+                Helping Businesses Grow with Innovative Helthcare Sale Solutions
                 Welcome to Echo Helathcare Services! We specialize in providing comprehensive Medical solutions that empower businesses to thrive. We harness cutting-edge technologies to optimize processes, enhance productivity, and drive growth, enabling our clients to stay ahead in today's digital landscape.
             </p>
             <div className='row'>

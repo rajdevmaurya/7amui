@@ -4,6 +4,19 @@ import { Cookies } from "./Cookies"
 
 export class ServerCall {
 
+    static authenticate(url, dataObj) {
+        return axios.post(process.env.NEXT_PUBLIC_BASE_URL + url,  { username: dataObj.uid, password: dataObj.pwd }, {
+            headers: { 'Content-type': 'application/json' }
+        })
+    }
+
+    static signup(url, dataObj) {
+        return axios.post(process.env.NEXT_PUBLIC_BASE_URL + url,  { username: dataObj.mobileno, password: dataObj.pwd, name: dataObj.name, mobileno: dataObj.mobileno, email: dataObj.uid }, {
+            headers: { 'Content-type': 'application/json' }
+        })
+    }
+     
+      
     static sendGetReq(url) {
         return axios.get(process.env.NEXT_PUBLIC_BASE_URL + url, {
             headers: {

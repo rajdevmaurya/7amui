@@ -21,8 +21,9 @@ const Profile = () => {
         async function getUsersById() {
             try {
                 dispatch({ type: "LOADER", payload: true })
-                const res = await ServerCall.sendGetReq(`std/get-user-by-id?id=${Cookies.getCookie("id")}`)
-                const userInfo = res?.data?.[0];
+                const res = await ServerCall.sendGetReq(`api/users/${Cookies.getCookie("id")}`)
+                //const userInfo = res?.data?.[0];
+                const userInfo = res?.data;
                 const clonedInputControls = JSON.parse(JSON.stringify(inputControls))
                 clonedInputControls?.forEach((obj) => {
                     obj.value = userInfo[obj.name]
